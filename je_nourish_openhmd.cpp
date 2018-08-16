@@ -16,10 +16,10 @@
 
 namespace {
 
-	class OculusHMD {
+	class OSVR_OpenHMD {
 		public:
-			OculusHMD(OSVR_PluginRegContext ctx, ohmd_context* ohmd_ctx, int i) : m_context(ohmd_ctx) {
-				std::string name ("Oculus ");
+			OSVR_OpenHMD(OSVR_PluginRegContext ctx, ohmd_context* ohmd_ctx, int i) : m_context(ohmd_ctx) {
+				std::string name ("OpenHMD ");
 				name.append(ohmd_list_gets(m_context, i, OHMD_PRODUCT));
 
 				m_device = ohmd_list_open_device(m_context, i);
@@ -34,7 +34,7 @@ namespace {
 				osvrQuatSetIdentity(&m_state);
 			}
 
-			~OculusHMD() {
+			~OSVR_OpenHMD() {
 				ohmd_close_device(m_device);
 			}
 
@@ -90,7 +90,7 @@ namespace {
 
 						if (product.compare("Dummy Device") != 0) {
 							osvr::pluginkit::registerObjectForDeletion(
-									ctx, new OculusHMD(ctx, ohmd_ctx, i));
+									ctx, new OSVR_OpenHMD(ctx, ohmd_ctx, i));
 							m_found = true;
 						}
 					}
